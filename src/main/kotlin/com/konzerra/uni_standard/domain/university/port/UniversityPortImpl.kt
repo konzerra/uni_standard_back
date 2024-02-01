@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service
 class UniversityPortImpl(
     private val repository: UniversityRepository
 ) : UniversityPort {
-    override fun save(university: University) {
-        repository.save(university)
+    override fun save(university: University): University {
+        return repository.save(university)
     }
 
     override fun deleteById(id: Long) {

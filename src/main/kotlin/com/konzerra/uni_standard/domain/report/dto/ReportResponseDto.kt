@@ -1,7 +1,7 @@
 package com.konzerra.uni_standard.domain.report.dto
 
-import com.konzerra.uni_standard.domain.criterion_response.dto.CriterionEvaluationResponseDto
 import com.konzerra.uni_standard.domain.report.Report
+import com.konzerra.uni_standard.domain.report._evalutation_group.dto.EvaluationGroupResponseDto
 import com.konzerra.uni_standard.domain.standard.dto.StandardResponseDto
 import com.konzerra.uni_standard.domain.university.dto.UniversityResponseDto
 import com.konzerra.uni_standard.generic.Mapper
@@ -11,8 +11,10 @@ data class ReportResponseDto(
     var id: Long? = null,
     var status: String,
     var standard: StandardResponseDto,
-    var evaluations: List<CriterionEvaluationResponseDto>,
-    var university: UniversityResponseDto
+    var evaluationGroups: List<EvaluationGroupResponseDto>,
+    var university: UniversityResponseDto,
+    var average: Double,
+    var reserve: Double
 ) {
     @Component
     companion object : Mapper<Report, ReportResponseDto> {
@@ -21,8 +23,10 @@ data class ReportResponseDto(
                 id = entity.id,
                 status = entity.status,
                 standard = StandardResponseDto.toDto(entity.standard, lang),
-                evaluations = entity.evaluations.map { CriterionEvaluationResponseDto.toDto(it, lang) },
-                university = UniversityResponseDto.toDto(entity.university, lang)
+                evaluationGroups = entity.evaluationGroups.map { EvaluationGroupResponseDto.toDto(it, lang) },
+                university = UniversityResponseDto.toDto(entity.university, lang),
+                average = entity.average,
+                reserve = entity.reserve
             )
         }
     }

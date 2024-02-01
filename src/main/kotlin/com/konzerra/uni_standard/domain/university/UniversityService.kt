@@ -8,8 +8,8 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
 interface UniversityService {
-    fun save(universityDto: UniversitySaveDto)
-    fun update(universityDto: UniversityUpdateDto)
+    fun save(universityDto: UniversitySaveDto): UniversityResponseDto
+    fun update(universityDto: UniversityUpdateDto): UniversityResponseDto
     fun deleteById(id: Long)
     fun findAll(): List<UniversityResponseDto>
     fun findPaginated(pageRequestDto: PageRequestDto): Page<UniversityResponseDto>

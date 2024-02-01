@@ -8,7 +8,7 @@ class AuthApi {
         const val protectedPath = "${ApiPath.protectedPath}$basePath"
         const val publicPath = "${ApiPath.publicPath}$basePath"
 
-        const val register = "$publicPath/register"
-        const val generateJwtToken = "$publicPath/generate_jwt"
+        const val signup = "$publicPath/signup"
+        const val signin = "$publicPath/signin"
     }
 }

@@ -14,19 +14,19 @@ class AuthController(
 
 
 
-    @PostMapping(AuthApi.register)
+    @PostMapping(AuthApi.signup)
     fun register(@RequestBody saveDto: UserSaveDto): ResponseEntity<*> {
-        authService.register(saveDto)
+        authService.signup(saveDto)
         return ResponseEntity<Any>(HttpStatus.CREATED)
     }
 
 
 
-    @PostMapping(AuthApi.generateJwtToken)
+    @PostMapping(AuthApi.signin)
     fun generateToken(
         @RequestBody jwtRequestDto: JwtRequestDto,
         @RequestHeader("Accept-Language") lang:String
     ): ResponseEntity<JwtResponseDto> {
-        return ResponseEntity(authService.generateToken(jwtRequestDto,lang), HttpStatus.OK)
+        return ResponseEntity(authService.signin(jwtRequestDto,lang), HttpStatus.OK)
     }
 }

@@ -4,5 +4,5 @@ import com.konzerra.uni_standard.domain.user.role.Role
 
 interface RolePort {
 
-    fun findBtName(name:String): Role
+    fun findByName(name:String): Role
 }

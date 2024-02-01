@@ -14,9 +14,11 @@ class UserApi {
 
         const val getBalance = "$protectedPath/{id}/balance"
 
-        const val updatePath = protectedPath
+        const val update = protectedPath
         const val deleteById = "$protectedPath/{id}"
 
-
+        const val updateByAdmin = "$protectedPath/admin/update"
+        const val findPaginated = "$protectedPath/paginated"
+        const val findSearchByEmail = "$protectedPath/search"
     }
 }

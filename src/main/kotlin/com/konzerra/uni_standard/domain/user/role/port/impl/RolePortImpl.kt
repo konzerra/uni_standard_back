@@ -10,7 +10,7 @@ import com.konzerra.uni_standard.exception.ResourceNotFoundException
 class RolePortImpl(
     private val repository: RoleRepository
 ) : RolePort {
-    override fun findBtName(name: String): Role {
+    override fun findByName(name: String): Role {
         try{
             return repository.findRoleByName(name)
         }catch(e:RuntimeException){

@@ -19,18 +19,18 @@ class AuthServiceImpl(
     private val passwordEncoder: BCryptPasswordEncoder,
     private val jwtUseCaseGenerateJwtToken: JwtUseCaseGenerateJwtToken
 ) : AuthService {
-    override fun register(userSaveDto: UserSaveDto) {
+    override fun signup(userSaveDto: UserSaveDto) {
         userPort.save(
             User(
                 name = userSaveDto.name,
                 email = userSaveDto.email,
                 password = passwordEncoder.encode(userSaveDto.password),
-                roles = mutableSetOf(rolePort.findBtName(UserRoles.USER.toString()))
+                roles = mutableSetOf(rolePort.findByName(UserRoles.USER))
             )
         )
     }
 
-    override fun generateToken(jwtRequestDto: JwtRequestDto, lang: String): JwtResponseDto {
+    override fun signin(jwtRequestDto: JwtRequestDto, lang: String): JwtResponseDto {
        return jwtUseCaseGenerateJwtToken.execute(jwtRequestDto, lang)
     }
 }

@@ -6,9 +6,9 @@ import com.konzerra.uni_standard.domain.user.dto.UserSaveDto
 
 interface AuthService {
 
-    fun register(userSaveDto: UserSaveDto)
+    fun signup(userSaveDto: UserSaveDto)
 
-    fun generateToken(jwtRequestDto: JwtRequestDto, lang: String): JwtResponseDto
+    fun signin(jwtRequestDto: JwtRequestDto, lang: String): JwtResponseDto
 
 
 }

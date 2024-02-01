@@ -4,6 +4,5 @@ class UserRoles {
     companion object {
         const val ADMIN = "Admin"
         const val USER = "User"
-        const val MANAGER = "Manager"
     }
 }

@@ -5,7 +5,6 @@ import com.konzerra.uni_standard.domain.university.data.ProgramNumber
 import com.konzerra.uni_standard.domain.university.data.StudentNumber
 
 data class UniversitySaveDto(
-    var userId: Long,
     var version: String = "",
     var name: String = "",
     var address: String = "",

@@ -1,7 +1,7 @@
 package com.konzerra.uni_standard.domain.standard.dto
 
-import com.konzerra.uni_standard.domain.criterion.dto.CriterionResponseDto
 import com.konzerra.uni_standard.domain.standard.Standard
+import com.konzerra.uni_standard.domain.standard.criteria_group.dto.CriteriaGroupResponseDto
 import com.konzerra.uni_standard.generic.Mapper
 import org.springframework.stereotype.Component
 
@@ -11,7 +11,7 @@ class StandardResponseDto(
     var version: String,
     var description: String,
     var status: String,
-    var criteria: List<CriterionResponseDto>,
+    var criteriaGroups: List<CriteriaGroupResponseDto>,
 )
 {
     @Component
@@ -23,7 +23,7 @@ class StandardResponseDto(
                 version = entity.version,
                 description = entity.description,
                 status = entity.status,
-                criteria = entity.criteria.map { CriterionResponseDto.toDto(it, lang) },
+                criteriaGroups = entity.criteriaGroups.map { CriteriaGroupResponseDto.toDto(it, lang) },
             )
         }
     }

@@ -2,6 +2,7 @@ package com.konzerra.uni_standard.domain.standard
 
 import com.konzerra.uni_standard.AppLanguages
 import com.konzerra.uni_standard.common.pagination.dto.PageRequestDto
+import com.konzerra.uni_standard.domain.standard.dto.StandardReportsResponseDto
 import com.konzerra.uni_standard.domain.standard.dto.StandardResponseDto
 import com.konzerra.uni_standard.domain.standard.dto.StandardSaveDto
 import com.konzerra.uni_standard.domain.standard.dto.StandardUpdateDto
@@ -24,7 +25,10 @@ interface StandardService {
      * @param lang The language for the returned DTOs
      * @return A page of StandardResponseDto
      */
-    fun findAllPaginated(pageRequestDto: PageRequestDto, lang: String = AppLanguages.DEFAULT): Page<StandardResponseDto>
+    fun findPaginated(pageRequestDto: PageRequestDto, lang: String = AppLanguages.DEFAULT): Page<StandardResponseDto>
+
+
+    fun findPaginatedWithReports(pageRequestDto: PageRequestDto, lang: String = AppLanguages.DEFAULT): Page<StandardReportsResponseDto>
 
     /**
      * Find a Standard by id
@@ -56,4 +60,6 @@ interface StandardService {
      * @param updateDto The StandardUpdateDto object defining the details of the Standard to update
      */
     fun update(updateDto: StandardUpdateDto)
+
+    fun findAllPublishedWithReports(): List<StandardReportsResponseDto>
 }

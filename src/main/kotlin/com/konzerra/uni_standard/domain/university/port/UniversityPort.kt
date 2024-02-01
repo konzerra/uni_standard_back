@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
 interface UniversityPort {
-    fun save(university: University)
+    fun save(university: University): University
     fun deleteById(id: Long)
     fun findAll(): List<University>
     fun findAllPaginated(pageable: Pageable): Page<University>

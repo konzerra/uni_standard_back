@@ -29,9 +29,6 @@ class ReportPortImpl(
         return repository.findAll()
     }
 
-    override fun findPaginatedByUser(pageable: Pageable, userId: Long): Page<Report> {
-        return repository.findAllByOwnerId(pageable, userId)
-    }
 
     override fun findById(id: Long): Report {
         return repository.findById(id).orElseThrow {

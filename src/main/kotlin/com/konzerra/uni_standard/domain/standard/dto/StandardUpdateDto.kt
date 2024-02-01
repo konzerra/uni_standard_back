@@ -1,7 +1,7 @@
 package com.konzerra.uni_standard.domain.standard.dto
 
-import com.konzerra.uni_standard.domain.criterion.dto.CriterionSaveDto
-import com.konzerra.uni_standard.domain.criterion.dto.CriterionUpdateDto
+import com.konzerra.uni_standard.domain.standard.criteria_group.dto.CriteriaGroupUpdateDto
+import jakarta.validation.Valid
 
 data class StandardUpdateDto(
     var id: Long,
@@ -9,5 +9,6 @@ data class StandardUpdateDto(
     var version: String,
     var description: String,
     var status: String,
-    var criteria: List<CriterionUpdateDto>,
+    @field:Valid
+    var criteriaGroups: List<CriteriaGroupUpdateDto>,
 )

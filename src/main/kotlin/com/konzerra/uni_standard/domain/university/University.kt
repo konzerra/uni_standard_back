@@ -51,8 +51,6 @@ class University(
     // 11. Общая площадь учебного фонда
     var totalAreaOfEducationalFund: Long = 0,
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.REFRESH])
-    var manager: User,
 
     @OneToMany(mappedBy = "university", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var reports: List<Report> = emptyList(),

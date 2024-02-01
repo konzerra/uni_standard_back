@@ -2,10 +2,12 @@ package com.konzerra.uni_standard.domain.standard.impl
 
 import com.konzerra.uni_standard.common.pagination.PaginationMapper
 import com.konzerra.uni_standard.common.pagination.dto.PageRequestDto
-import com.konzerra.uni_standard.domain.criterion.Criterion
+import com.konzerra.uni_standard.domain.standard.criteria_group.CriteriaGroup
+import com.konzerra.uni_standard.domain.standard.criterion.Criterion
 import com.konzerra.uni_standard.domain.standard.Standard
 import com.konzerra.uni_standard.domain.standard.StandardService
 import com.konzerra.uni_standard.domain.standard.StandardStatus
+import com.konzerra.uni_standard.domain.standard.dto.StandardReportsResponseDto
 import com.konzerra.uni_standard.domain.standard.dto.StandardResponseDto
 import com.konzerra.uni_standard.domain.standard.dto.StandardSaveDto
 import com.konzerra.uni_standard.domain.standard.dto.StandardUpdateDto
@@ -23,9 +25,18 @@ class StandardServiceImpl(
         }
     }
 
-    override fun findAllPaginated(pageRequestDto: PageRequestDto, lang: String): Page<StandardResponseDto> {
+    override fun findPaginated(pageRequestDto: PageRequestDto, lang: String): Page<StandardResponseDto> {
         return standardPort.findPaginated(PaginationMapper.toPageable(pageRequestDto)).map {
             StandardResponseDto.toDto(it, lang)
+        }
+    }
+
+    override fun findPaginatedWithReports(
+        pageRequestDto: PageRequestDto,
+        lang: String
+    ): Page<StandardReportsResponseDto> {
+        return standardPort.findPaginated(PaginationMapper.toPageable(pageRequestDto)).map {
+            StandardReportsResponseDto.toDto(it, lang)
         }
     }
 
@@ -44,12 +55,17 @@ class StandardServiceImpl(
                 name = saveDto.name,
                 version = saveDto.version,
                 description = saveDto.description,
-                status = StandardStatus.OPEN,
-                criteria = saveDto.criteria.map {
-                    Criterion(
+                status = StandardStatus.REGISTERED,
+                criteriaGroups = saveDto.criteriaGroups.map {
+                    CriteriaGroup(
                         name = it.name,
-                        description = it.description,
-                        value = it.value
+                        criteria = it.criteria.map { criterionSaveDto ->
+                            Criterion(
+                                name = criterionSaveDto.name,
+                                description = criterionSaveDto.description,
+                                value = criterionSaveDto.value
+                            )
+                        }
                     )
                 }
             )
@@ -58,18 +74,43 @@ class StandardServiceImpl(
 
     override fun update(updateDto: StandardUpdateDto) {
         val standard = standardPort.findById(updateDto.id)
+
+        //TODO deal with different status and criteria update
+        //Do not update criteria value if already published
+        if(standard.status != StandardStatus.PUBLISHED){
+            standard.criteriaGroups = updateDto.criteriaGroups.map {
+                CriteriaGroup(
+                    id = it.id,
+                    name = it.name,
+                    criteria = it.criteria.map { updateDto ->
+                        Criterion(
+                            id = updateDto.id,
+                            name = updateDto.name,
+                            description = updateDto.description,
+                            value = updateDto.value
+                        )
+                    }
+                )
+
+            }
+        }
+
+        //Do not roll back from PUBLISHED status
+        if(standard.status != StandardStatus.PUBLISHED){
+            standard.status = updateDto.status
+        }
+
         standard.name = updateDto.name
         standard.version = updateDto.version
         standard.description = updateDto.description
-        standard.status = updateDto.status
-        standard.criteria = updateDto.criteria.map {
-            Criterion(
-                id = it.id,
-                name = it.name,
-                description = it.description,
-                value = it.value
-            )
-        }
+
+
         standardPort.save(standard)
+    }
+
+    override fun findAllPublishedWithReports(): List<StandardReportsResponseDto> {
+        return standardPort.findAllByStatus(StandardStatus.PUBLISHED).map {
+            StandardReportsResponseDto.toDto(it)
+        }
     }
 }

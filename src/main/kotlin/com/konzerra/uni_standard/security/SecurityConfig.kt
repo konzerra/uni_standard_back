@@ -3,6 +3,8 @@ package com.konzerra.uni_standard.security
 
 
 import com.konzerra.uni_standard.ApiPath
+import com.konzerra.uni_standard.config.security_config.SecurityProperties
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
@@ -20,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableConfigurationProperties(SecurityProperties::class)
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 class SecurityConfig(
     private val userDetailsService: UserDetailsService,
@@ -51,6 +54,7 @@ class SecurityConfig(
     @Throws(java.lang.Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain? {
 
+        http.cors {  }
         http.csrf { csrf -> csrf.disable() }
 
         // Set session management to stateless

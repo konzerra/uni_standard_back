@@ -1,6 +1,6 @@
 package com.konzerra.uni_standard.domain.report
 
-import com.konzerra.uni_standard.domain.criterion_response.CriterionEvaluation
+import com.konzerra.uni_standard.domain.report._evalutation_group.EvaluationGroup
 import com.konzerra.uni_standard.domain.standard.Standard
 import com.konzerra.uni_standard.domain.university.University
 import com.konzerra.uni_standard.domain.user.User
@@ -14,14 +14,14 @@ class Report(
     var status:String,
 
     @ManyToOne(cascade = [CascadeType.REFRESH], fetch = FetchType.LAZY)
-    var owner: User,
-
-    @ManyToOne(cascade = [CascadeType.REFRESH], fetch = FetchType.LAZY)
     var standard: Standard,
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var evaluations: List<CriterionEvaluation>,
+    var evaluationGroups: List<EvaluationGroup> = emptyList(),
 
-    @ManyToOne(cascade = [CascadeType.REFRESH], fetch = FetchType.LAZY)
-    var university: University
+    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    var university: University,
+
+    var average: Double = 0.0,
+    var reserve: Double = 0.0
 )

@@ -1,10 +1,10 @@
 package com.konzerra.uni_standard.domain.report.dto
 
-import com.konzerra.uni_standard.domain.criterion_response.dto.CriterionEvaluationSaveDto
+import com.konzerra.uni_standard.domain.report._evalutation_group.dto.EvaluationGroupSaveDto
+import com.konzerra.uni_standard.domain.university.dto.UniversitySaveDto
 
 data class ReportSaveDto(
-    var userId: Long,
     var standardId: Long,
-    var evaluations: List<CriterionEvaluationSaveDto>,
-    var universityId: Long
+    var evaluationGroups: List<EvaluationGroupSaveDto>,
+    var university: UniversitySaveDto
 )
