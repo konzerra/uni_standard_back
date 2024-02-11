@@ -2,6 +2,7 @@ package com.konzerra.uni_standard.domain.standard.impl
 
 import com.konzerra.uni_standard.common.pagination.PaginationMapper
 import com.konzerra.uni_standard.common.pagination.dto.PageRequestDto
+import com.konzerra.uni_standard.domain.report.ReportStatus
 import com.konzerra.uni_standard.domain.standard.criteria_group.CriteriaGroup
 import com.konzerra.uni_standard.domain.standard.criterion.Criterion
 import com.konzerra.uni_standard.domain.standard.Standard
@@ -109,8 +110,18 @@ class StandardServiceImpl(
     }
 
     override fun findAllPublishedWithReports(): List<StandardReportsResponseDto> {
-        return standardPort.findAllByStatus(StandardStatus.PUBLISHED).map {
-            StandardReportsResponseDto.toDto(it)
+        return standardPort.findAllByStatus(StandardStatus.PUBLISHED).flatMap {
+            val standardDto = StandardReportsResponseDto.toDto(it)
+            val filteredReports = standardDto.reports.filter { report ->
+                report.status == ReportStatus.PUBLISHED
+            }
+            if (filteredReports.isNotEmpty()) {
+                listOf(standardDto.copy(reports = filteredReports))
+            } else {
+                emptyList()
+            }
+        }.sortedByDescending {
+            it.id
         }
     }
 }

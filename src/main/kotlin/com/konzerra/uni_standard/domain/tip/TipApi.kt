@@ -13,7 +13,7 @@ class TipApi {
         const val findAll = "$publicPath/all"
         const val findByIdFull = "$protectedPath/full/{id}"
         const val findById = "$protectedPath/{id}"
-        const val findAllPaginated = "$publicPath/paginated"
+        const val findPaginated = "$publicPath/paginated"
 
         const val save = protectedPath
         const val update = protectedPath

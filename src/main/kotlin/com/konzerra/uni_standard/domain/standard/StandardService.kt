@@ -61,5 +61,8 @@ interface StandardService {
      */
     fun update(updateDto: StandardUpdateDto)
 
+    /*
+    finds published standards with published reports
+     */
     fun findAllPublishedWithReports(): List<StandardReportsResponseDto>
 }

@@ -80,6 +80,7 @@ class StandardController(
         )
     }
 
+
     @GetMapping(StandardApi.findAllPublishedWithReports)
     fun findPaginatedWithReports(
     ): Any {

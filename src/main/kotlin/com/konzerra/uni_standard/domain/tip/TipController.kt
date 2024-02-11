@@ -1,12 +1,15 @@
 package com.konzerra.uni_standard.domain.tip
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.konzerra.uni_standard.common.pagination.dto.PageRequestDto
 import com.konzerra.uni_standard.domain.tip.dto.TipResponseDto
 import com.konzerra.uni_standard.domain.tip.dto.TipSaveDto
 import com.konzerra.uni_standard.domain.tip.dto.TipUpdateDto
+import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.net.URLDecoder
 
 @RestController
 class TipController(
@@ -42,11 +45,13 @@ class TipController(
         return ResponseEntity(tipService.findAll(lang), HttpStatus.OK)
     }
 
-    @PostMapping(TipApi.findAllPaginated)
-    fun findAllPaginated(
-        @RequestBody pageRequestDto: PageRequestDto,
-        @RequestHeader("Accept-Language") lang: String
-    ): ResponseEntity<Any> {
+    @GetMapping(TipApi.findPaginated)
+    fun findPaginated(
+        @RequestParam("pageRequestDto") pageRequestDtoEncoded: String,
+        @RequestHeader("Accept-Language") lang:String
+    ): ResponseEntity<Page<TipResponseDto>> {
+        val pageRequestJson = URLDecoder.decode(pageRequestDtoEncoded, "UTF-8")
+        val pageRequestDto = ObjectMapper().readValue(pageRequestJson, PageRequestDto::class.java)
         return ResponseEntity(
             tipService.findAllPaginated(pageRequestDto,lang),
             HttpStatus.OK

@@ -30,7 +30,7 @@ class ReportUseCaseCalculateImpl(
             }
         }
         report.average = sumOfCalc/totalEvaluations
-        report.reserve = totalReserve
+        report.reserve = totalReserve/totalEvaluations
         reportPort.save(report)
     }
 }
