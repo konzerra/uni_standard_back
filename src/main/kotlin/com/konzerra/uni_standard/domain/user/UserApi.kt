@@ -12,11 +12,10 @@ class UserApi {
         const val findById = "$protectedPath/{id}"
         const val findAll = "$publicPath/all/"
 
-        const val getBalance = "$protectedPath/{id}/balance"
-
         const val update = protectedPath
         const val deleteById = "$protectedPath/{id}"
 
+        const val saveByAdmin = "$protectedPath/admin/save"
         const val updateByAdmin = "$protectedPath/admin/update"
         const val findPaginated = "$protectedPath/paginated"
         const val findSearchByEmail = "$protectedPath/search"

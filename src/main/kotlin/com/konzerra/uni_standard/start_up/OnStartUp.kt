@@ -23,6 +23,9 @@ class OnStartup(
             ),
             Role(
                 name = UserRoles.ADMIN
+            ),
+            Role(
+                name = UserRoles.DATA_ACCESS
             )
         )
         //check if role exists before saving

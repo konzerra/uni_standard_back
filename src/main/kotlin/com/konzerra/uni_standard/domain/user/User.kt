@@ -17,6 +17,4 @@ class User(
     var password:String,
     @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.REFRESH])
     var roles:MutableSet<Role> = mutableSetOf(),
-    //@OneToMany(mappedBy = "owner", cascade = [CascadeType.REFRESH])
-   // var articles:Set<University> = setOf(),
 )

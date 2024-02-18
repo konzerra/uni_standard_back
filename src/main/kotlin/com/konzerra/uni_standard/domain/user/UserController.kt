@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.konzerra.uni_standard.common.pagination.dto.PageRequestDto
 import com.konzerra.uni_standard.domain.user.dto.UserAdminUpdateDto
 import com.konzerra.uni_standard.domain.user.dto.UserResponseDto
+import com.konzerra.uni_standard.domain.user.dto.UserSaveDto
 import com.konzerra.uni_standard.domain.user.dto.UserUpdateDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -30,6 +31,13 @@ class UserController(
     }
 
     @PreAuthorize("hasAnyRole('${UserRoles.ADMIN}')")
+    @PostMapping(UserApi.saveByAdmin)
+    fun saveByAdmin(@RequestBody saveDto: UserSaveDto): ResponseEntity<*> {
+        userService.saveUser(saveDto)
+        return ResponseEntity<Any>(HttpStatus.OK)
+    }
+
+    @PreAuthorize("hasAnyRole('${UserRoles.ADMIN}')")
     @PutMapping(UserApi.updateByAdmin)
     fun updateByAdmin(@RequestBody updateDto: UserAdminUpdateDto): ResponseEntity<*> {
         userService.updateByAdmin(updateDto)
@@ -41,7 +49,6 @@ class UserController(
         @RequestParam("pageRequestDto") pageRequestDtoEncoded: String,
         @RequestHeader("Accept-Language") lang:String
     ): Any {
-        println(pageRequestDtoEncoded)
         val pageRequestJson = URLDecoder.decode(pageRequestDtoEncoded, "UTF-8")
         val pageRequestDto = ObjectMapper().readValue(pageRequestJson, PageRequestDto::class.java)
         return ResponseEntity(

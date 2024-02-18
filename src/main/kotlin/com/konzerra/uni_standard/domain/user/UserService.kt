@@ -14,7 +14,7 @@ interface UserService {
     /**
      * Admin only function to register new user
      */
-
+    fun saveUser(saveDto: UserSaveDto)
 
     fun deleteById(id: Long)
 

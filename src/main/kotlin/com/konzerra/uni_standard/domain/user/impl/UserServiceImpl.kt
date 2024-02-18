@@ -2,10 +2,13 @@ package com.konzerra.uni_standard.domain.user.impl
 
 import com.konzerra.uni_standard.common.pagination.PaginationMapper
 import com.konzerra.uni_standard.common.pagination.dto.PageRequestDto
+import com.konzerra.uni_standard.domain.user.User
+import com.konzerra.uni_standard.domain.user.UserRoles
 import com.konzerra.uni_standard.domain.user.dto.UserResponseDto
 import com.konzerra.uni_standard.domain.user.dto.UserUpdateDto
 import com.konzerra.uni_standard.domain.user.UserService
 import com.konzerra.uni_standard.domain.user.dto.UserAdminUpdateDto
+import com.konzerra.uni_standard.domain.user.dto.UserSaveDto
 import com.konzerra.uni_standard.domain.user.port.UserPort
 import com.konzerra.uni_standard.domain.user.role.port.RolePort
 import com.konzerra.uni_standard.security.util.AuthUtil
@@ -24,8 +27,18 @@ class UserServiceImpl(
         return UserResponseDto.toDto(userPort.findById(id), lang)
     }
 
+    override fun saveUser(saveDto: UserSaveDto) {
+        val user = User(
+            name = saveDto.name,
+            email = saveDto.email,
+            password = passwordEncoder.encode(saveDto.password),
+            roles = mutableSetOf(rolePort.findByName(UserRoles.USER))
+        )
+        userPort.save(user)
+    }
+
     override fun deleteById(id: Long) {
-        TODO("Not yet implemented")
+        userPort.deleteById(id)
     }
 
     override fun updateByAdmin(updateDto: UserAdminUpdateDto) {
