@@ -43,6 +43,13 @@ class UserController(
         userService.updateByAdmin(updateDto)
         return ResponseEntity<Any>(HttpStatus.OK)
     }
+
+    @PreAuthorize("hasAnyRole('${UserRoles.ADMIN}')")
+    @DeleteMapping(UserApi.deleteById)
+    fun deleteById(@PathVariable id: Long): ResponseEntity<*> {
+        userService.deleteById(id)
+        return ResponseEntity<Any>(HttpStatus.OK)
+    }
     @PreAuthorize("hasAnyRole('${UserRoles.ADMIN}')")
     @GetMapping(UserApi.findPaginated)
     fun findPaginated(

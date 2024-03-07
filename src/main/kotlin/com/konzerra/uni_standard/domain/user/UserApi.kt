@@ -10,7 +10,6 @@ class UserApi {
         const val publicPath = "${ApiPath.publicPath}$basePath"
 
         const val findById = "$protectedPath/{id}"
-        const val findAll = "$publicPath/all/"
 
         const val update = protectedPath
         const val deleteById = "$protectedPath/{id}"

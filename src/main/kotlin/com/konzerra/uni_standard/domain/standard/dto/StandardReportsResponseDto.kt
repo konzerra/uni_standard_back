@@ -27,6 +27,8 @@ data class StandardReportsResponseDto(
                 criteriaGroups = entity.criteriaGroups.map { CriteriaGroupResponseDto.toDto(it, lang) },
                 reports = entity.reports.map {
                     ReportResponseDto.toDto(it)
+                }.sortedByDescending {
+                    it.average
                 }
             )
         }
