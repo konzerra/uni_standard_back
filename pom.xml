@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.konzerra</groupId>
     <artifactId>uni_standard</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>v.1.1</version>
     <name>uni_standard_back</name>
     <description>uni_standard_back</description>
     <properties>
@@ -199,6 +199,7 @@
                 </dependencies>
             </plugin>
         </plugins>
+        <finalName>webserver</finalName>
     </build>
 
 </project>
