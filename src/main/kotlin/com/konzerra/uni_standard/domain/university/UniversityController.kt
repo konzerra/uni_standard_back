@@ -40,6 +40,7 @@ class UniversityController(
     }
 
 
+
     @GetMapping(UniversityApi.findById)
     fun findById(@PathVariable id: Long): ResponseEntity<UniversityResponseDto> {
         return ResponseEntity(universityService.findById(id),HttpStatus.OK)

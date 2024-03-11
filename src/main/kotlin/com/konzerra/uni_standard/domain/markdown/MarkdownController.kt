@@ -70,6 +70,7 @@ class MarkdownController(
         return ResponseEntity<Any>(HttpStatus.OK)
     }
 
+    @PreAuthorize("hasRole('Admin')")
     @PostMapping(MarkdownApi.save)
     fun save(
         @RequestPart saveDto: MarkdownSaveDto,
@@ -79,6 +80,7 @@ class MarkdownController(
         return ResponseEntity<Any>(HttpStatus.OK)
     }
 
+    @PreAuthorize("hasRole('Admin')")
     @PutMapping(MarkdownApi.update)
     fun update(
         @RequestPart updateDto: MarkdownUpdateDto,

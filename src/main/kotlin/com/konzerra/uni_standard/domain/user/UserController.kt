@@ -24,6 +24,7 @@ class UserController(
     }
 
 
+    @PreAuthorize("hasRole('${UserRoles.USER}')")
     @PutMapping(UserApi.update)
     fun update(@RequestBody updateDto: UserUpdateDto): ResponseEntity<*> {
         userService.update(updateDto)

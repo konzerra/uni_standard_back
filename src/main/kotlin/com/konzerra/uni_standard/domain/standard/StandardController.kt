@@ -46,6 +46,7 @@ class StandardController(
         return ResponseEntity(standardService.findById(id,lang),HttpStatus.OK)
     }
 
+    @PreAuthorize("hasRole('Admin')")
     @GetMapping(StandardApi.findAllByStatus)
     fun findAllByStatus(
         @RequestParam status: String,

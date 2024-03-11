@@ -8,6 +8,7 @@ import com.konzerra.uni_standard.domain.tip.dto.TipUpdateDto
 import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import java.net.URLDecoder
 
@@ -15,6 +16,7 @@ import java.net.URLDecoder
 class TipController(
     private val tipService: TipService
 ) {
+    @PreAuthorize("hasRole('Admin')")
     @PutMapping(TipApi.update)
     fun update(@RequestBody updateDto: TipUpdateDto): ResponseEntity<*> {
         tipService.update(updateDto)
@@ -22,12 +24,14 @@ class TipController(
     }
 
 
+    @PreAuthorize("hasRole('Admin')")
     @PostMapping(TipApi.save)
     fun save(@RequestBody saveDto: TipSaveDto): ResponseEntity<*> {
         tipService.save(saveDto)
         return ResponseEntity<Any>(HttpStatus.CREATED)
     }
 
+    @PreAuthorize("hasRole('Admin')")
     @DeleteMapping(TipApi.deleteById)
     fun deleteById(@PathVariable id: Long): ResponseEntity<*> {
         tipService.deleteById(id)
